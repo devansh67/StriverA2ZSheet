@@ -2,6 +2,7 @@
     "files.associations": {
         "*html": "html",
         "*njk": "html",
-        "unordered_map": "cpp"
+        "unordered_map": "cpp",
+        "vector": "cpp"
     }
 }
