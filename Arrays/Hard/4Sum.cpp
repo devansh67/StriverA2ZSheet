@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
+#include <set>
 
 using namespace std;
 
@@ -10,23 +11,44 @@ public:
     vector<vector<int>> fourSum(vector<int> &nums, int target)
     {
         int n = nums.size();
+        set<vector<int>> s;
         vector<vector<int>> answer;
 
         sort(nums.begin(), nums.end());
 
         for (int i = 0; i < n - 3; i++)
         {
-            if (i == 0 || (i > 0 && nums[i] != nums[i - 1]))
+            for (int j = i + 1; j < n - 2; j++)
             {
-                for (int j = i; j < n - 2; j++)
+                int start = j + 1;
+                int end = n - 1;
+
+                long long updatedSum = (long long)target - (long long)nums[i] - (long long)nums[j];
+                while (start < end)
                 {
-                    if(j == 0 || (j > 0 && nums[j] != nums[j - 1]))
+                    if (nums[start] + nums[end] < updatedSum)
                     {
-                        int start = nums[j+1];
-                        int end = nums[n-1];
+                        start++;
+                    }
+                    else if (nums[start] + nums[end] > updatedSum)
+                    {
+                        end--;
+                    }
+                    else
+                    {
+                        s.insert({nums[i], nums[j], nums[start], nums[end]});
+                        start++;
+                        end--;
                     }
                 }
             }
         }
+
+        for (auto it : s)
+        {
+            answer.push_back(it);
+        }
+
+        return answer;
     }
 };
