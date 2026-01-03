@@ -1,0 +1,30 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <queue>
+
+using namespace std;
+
+// https://leetcode.com/problems/kth-largest-element-in-an-array/description/
+
+class Solution
+{
+public:
+    int findKthLargest(vector<int> &nums, int k)
+    {
+        int n = nums.size();
+        priority_queue<int, vector<int>, greater<int>> pq;
+
+        for (auto it : nums)
+        {
+            pq.push(it);
+
+            if (pq.size() > k)
+            {
+                pq.pop();
+            }
+        }
+
+        return pq.top();
+    }
+};
